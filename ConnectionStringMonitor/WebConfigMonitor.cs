@@ -51,13 +51,15 @@ namespace ConnectionStringMonitor
         {
             if (_webConfigItem != null)
             {
-                _webConfigItem.Open(EnvDTE.Constants.vsViewKindCode);
+                var window = _webConfigItem.Open(EnvDTE.Constants.vsViewKindPrimary);
+                window.Activate();
             }
         }
 
         private IVsSolution GetSolutionService()
         {
-            var serviceProvider = new ServiceProvider(_dte as Microsoft.VisualStudio.OLE.Interop.IServiceProvider);
+            var serviceProvider = new ServiceProvider(
+                _dte as Microsoft.VisualStudio.OLE.Interop.IServiceProvider);
             if (serviceProvider != null)
             {
                 return serviceProvider.GetService(typeof(SVsSolution)) as IVsSolution;
