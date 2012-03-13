@@ -29,6 +29,8 @@ namespace ConnectionStringMonitor
             var vsSolution = GetSolutionService();
             if (vsSolution != null)
                 vsSolution.AdviseSolutionEvents(this, out _cookie);
+
+            HookSolution();
         }
 
         public void Dispose()
@@ -42,6 +44,14 @@ namespace ConnectionStringMonitor
                     vsSolution.UnadviseSolutionEvents(_cookie);
 
                 _dte = null;
+            }
+        }
+
+        public void OpenFile()
+        {
+            if (_webConfigItem != null)
+            {
+                _webConfigItem.Open(EnvDTE.Constants.vsViewKindCode);
             }
         }
 
@@ -59,6 +69,9 @@ namespace ConnectionStringMonitor
         private void HookSolution()
         {
             var solution = _dte.Solution;
+            if ((solution == null) || !solution.IsOpen)
+                return;
+
             var startupProjects = (Array)solution.SolutionBuild.StartupProjects;
             if (startupProjects != null && startupProjects.Length > 0)
             {
