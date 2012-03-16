@@ -10,23 +10,23 @@ using System.Windows.Forms;
 
 namespace ConnectionStringMonitor
 {
-    public partial class SettingsForm : Form
-    {
-        public SettingsForm()
-        {
-            InitializeComponent();
+	public partial class SettingsForm : Form
+	{
+		public SettingsForm()
+		{
+			InitializeComponent();
 
-            this.nameTextBox.Text = Settings.Default.ConnectionStringName;
-        }
+			this.nameTextBox.Text = Settings.Default.ConnectionStringName;
+		}
 
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-        }
+		private void cancelButton_Click(object sender, EventArgs e)
+		{
+		}
 
-        private void okButton_Click(object sender, EventArgs e)
-        {
-            Settings.Default.ConnectionStringName = this.nameTextBox.Text;
-            Settings.Default.Save();
-        }
-    }
+		private void okButton_Click(object sender, EventArgs e)
+		{
+			Settings.Default.ConnectionStringName = this.nameTextBox.Text;
+			Settings.Default.Save();
+		}
+	}
 }
