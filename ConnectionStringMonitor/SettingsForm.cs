@@ -26,6 +26,7 @@ namespace ConnectionStringMonitor
         private void okButton_Click(object sender, EventArgs e)
         {
             Settings.Default.ConnectionStringName = this.nameTextBox.Text;
+            Settings.Default.Save();
         }
     }
 }
