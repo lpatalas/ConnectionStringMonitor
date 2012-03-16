@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
@@ -42,12 +43,14 @@ namespace ConnectionStringMonitor
         public WebConfigMonitor(DTE2 dte)
         {
             _dte = dte;
-
+            
             var vsSolution = GetSolutionService();
             if (vsSolution != null)
                 vsSolution.AdviseSolutionEvents(this, out _cookie);
 
             HookSolution();
+
+            Settings.Default.PropertyChanged += Settings_PropertyChanged;
         }
 
         public void Dispose()
@@ -87,6 +90,8 @@ namespace ConnectionStringMonitor
 
         private void HookSolution()
         {
+            UnhookSolution();
+
             var solution = _dte.Solution;
             if ((solution == null) || !solution.IsOpen)
                 return;
@@ -143,8 +148,9 @@ namespace ConnectionStringMonitor
                 new System.Configuration.ExeConfigurationFileMap { ExeConfigFilename = fileName },
                 System.Configuration.ConfigurationUserLevel.None);
 
+            var connectionStringName = Settings.Default.ConnectionStringName;
             var connectionString = (from ConnectionStringSettings item in config.ConnectionStrings.ConnectionStrings
-                                    where item.Name.Equals("Test")
+                                    where item.Name.Equals(connectionStringName, StringComparison.Ordinal)
                                     select item.ConnectionString)
                                     .FirstOrDefault();
 
@@ -168,6 +174,11 @@ namespace ConnectionStringMonitor
             }
 
             _webConfigItem = null;
+        }
+
+        private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            HookSolution();
         }
 
         private uint _cookie;
