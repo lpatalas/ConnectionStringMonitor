@@ -64,6 +64,8 @@
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ConnectionStringFormatter.cs" />
+    <Compile Include="ConnectionStringReplacement.cs" />
     <Compile Include="Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

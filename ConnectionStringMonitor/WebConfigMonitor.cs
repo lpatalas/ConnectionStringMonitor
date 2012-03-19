@@ -154,15 +154,7 @@ namespace ConnectionStringMonitor
 									select item.ConnectionString)
 									.FirstOrDefault();
 
-			if (!string.IsNullOrEmpty(connectionString))
-			{
-				var csBuilder = new SqlConnectionStringBuilder(connectionString);
-				this.ConnectionString = csBuilder.InitialCatalog;
-			}
-			else
-			{
-				this.ConnectionString = string.Empty;
-			}
+			this.ConnectionString = ConnectionStringFormatter.Format(connectionString);
 		}
 
 		private void UnhookSolution()

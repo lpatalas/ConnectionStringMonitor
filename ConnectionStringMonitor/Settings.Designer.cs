@@ -34,5 +34,17 @@ namespace ConnectionStringMonitor {
                 this["ConnectionStringName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%DataSource%\\%InitialCatalog%")]
+        public string OutputFormat {
+            get {
+                return ((string)(this["OutputFormat"]));
+            }
+            set {
+                this["OutputFormat"] = value;
+            }
+        }
     }
 }

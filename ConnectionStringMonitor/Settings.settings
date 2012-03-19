@@ -5,5 +5,8 @@
     <Setting Name="ConnectionStringName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="OutputFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%DataSource%\%InitialCatalog%</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
